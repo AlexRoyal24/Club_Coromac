@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Subir y Compartir</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #f9f9f9;
+      text-align: center;
+    }
+
+    header img {
+      max-width: 200px;
+      height: auto;
+      display: block;
+      margin: 0 auto 10px;
+    }
+
+    .banner img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: #fff;
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 0;
+      border-top: 1px solid #ccc;
+    }
+
+    .bottom-nav button {
+      background: none;
+      border: none;
+      font-size: 22px;
+      cursor: pointer;
+    }
+
+    .post {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      padding: 10px;
+      margin: 10px 0;
+    }
+
+    .post img, .post video {
+      max-width: 100%;
+      border-radius: 8px;
+    }
+
+    .share-btn {
+      margin-top: 8px;
+      padding: 6px 12px;
+      border: none;
+      border-radius: 6px;
+      background: #0077ff;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header con logo -->
+  <header>
+    <img id="logo" src="" alt="Logo">
+  </header>
+
+  <!-- Banner -->
+  <div class="banner">
+    <img id="banner" src="" alt="Banner">
+  </div>
+
+  <h2>Mis Publicaciones</h2>
+  <div id="posts"></div>
+
+  <!-- Barra inferior -->
+  <div class="bottom-nav">
+    <button>🏠</button>
+    <button>🔍</button>
+    <button onclick="document.getElementById('fileInput').click()">➕</button>
+    <button>❤️</button>
+    <button>👤</button>
+  </div>
+
+  <!-- Input oculto para subir -->
+  <input type="file" id="fileInput" accept="image/*,video/*" style="display:none" onchange="handleUpload(event)" />
+
+  <script>
+    // Obtenemos el logo y banner desde la URL
+    const params = new URLSearchParams(window.location.search);
+    const logoUrl = params.get("logo");
+    const bannerUrl = params.get("banner");
+
+    if (logoUrl) document.getElementById("logo").src = logoUrl;
+    if (bannerUrl) document.getElementById("banner").src = bannerUrl;
+
+    // Manejo de publicaciones
+    const postsContainer = document.getElementById("posts");
+
+    function handleUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const post = document.createElement("div");
+        post.className = "post";
+
+        if (file.type.startsWith("image/")) {
+          post.innerHTML = `<img src="${e.target.result}" alt="Imagen subida" />`;
+        } else if (file.type.startsWith("video/")) {
+          post.innerHTML = `<video controls><source src="${e.target.result}" type="${file.type}"></video>`;
+        }
+
+        const shareBtn = document.createElement("button");
+        shareBtn.className = "share-btn";
+        shareBtn.textContent = "🔗 Compartir";
+        shareBtn.onclick = () => sharePost(e.target.result);
+
+        post.appendChild(shareBtn);
+        postsContainer.prepend(post);
+      };
+      reader.readAsDataURL(file);
+    }
+
+    async function sharePost(url) {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: "Mira lo que subí",
+            text: "Te comparto este contenido:",
+            url: url
+          });
+        } catch (err) {
+          console.log("Error al compartir:", err);
+        }
+      } else {
+        navigator.clipboard.writeText(url).then(() => {
+          alert("Enlace copiado al portapapeles ✅");
+        });
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,267 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+/* Body y contenedores */
+body, html {
+  min-height: 100vh;
+  background-color: #e0f7fa;
+}
+
+#login-screen, #main-app {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* Pantalla de login */
+#login-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #b2ebf2;
+}
+
+#login-screen h1 {
+  margin-bottom: 20px;
+  color: #00796b;
+}
+
+#loginForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 80%;
+  max-width: 250px;
+}
+
+#loginForm input {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #00796b;
+}
+
+#loginForm button {
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  background-color: #00796b;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Perfil */
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  background-color: #00bfa5;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 2px solid #00796b;
+}
+
+.profile-logo {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid white;
+  object-fit: cover;
+}
+
+/* Stories */
+.stories-container {
+  display: flex;
+  overflow-x: auto;
+  gap: 10px;
+  padding: 10px;
+  background-color: #e0f2f1;
+  border-bottom: 2px solid #00796b;
+}
+
+.story {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 60px;
+  cursor: pointer;
+}
+
+.story img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #00796b;
+  margin-bottom: 5px;
+}
+
+.add-story {
+  font-size: 28px;
+  color: #00796b;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px dashed #00796b;
+}
+
+/* Feed */
+#feed {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 10px;
+}
+
+.post {
+  background: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+.post img, .post video {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+}
+
+/* Perfil dentro del post */
+.post .profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+}
+
+.profile-pic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #00796b;
+}
+
+/* Acciones del post */
+.post-actions {
+  display: flex;
+  gap: 15px;
+  padding: 10px;
+}
+
+.post-actions button {
+  font-size: 20px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+/* Descripción del post */
+.description {
+  padding: 0 10px 10px 10px;
+  font-size: 14px;
+  color: #004d40;
+}
+
+/* Barra inferior */
+#bottom-nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  background-color: #00bfa5;
+  padding: 10px 0;
+  border-top: 2px solid #00796b;
+  z-index: 100;
+}
+
+#bottom-nav button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* Botón subir contenido estilo TikTok (dentro de la barra) */
+.upload-btn {
+  font-size: 24px;
+  background: #ff2d55;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  line-height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.upload-btn input[type="file"] {
+  display: none;
+  width: 100%;
+  height: 100%;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .profile-logo { width: 45px; height: 45px; }
+  .profile-pic { width: 35px; height: 35px; }
+  .story img { width: 50px; height: 50px; }
+}
+
+@media (max-width: 480px) {
+  .profile-logo { width: 40px; height: 40px; }
+  .profile-pic { width: 30px; height: 30px; }
+  .story img { width: 45px; height: 45px; }
+}
+
+body, #root, #main-app { min-height:100vh; background-color: #fafafa; }
+
+/* Login */
+#login-screen { display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; gap:15px; }
+#login-screen input { padding:8px; margin-bottom:10px; width:200px; }
+#login-screen button { padding:8px 12px; cursor:pointer; }
+
+/* Perfil */
+#profile-section { background:#fff; border-bottom:1px solid #dbdbdb; text-align:center; padding:15px; position:sticky; top:0; z-index:100; }
+.profile-logo { width:60px; height:60px; border-radius:50%; margin-bottom:5px; }
+
+/* Stories */
+.stories-container { display:flex; overflow-x:auto; gap:10px; padding:10px; background:#fff; border-bottom:1px solid #dbdbdb; }
+.story { display:flex; flex-direction:column; align-items:center; min-width:60px; cursor:pointer; }
+.story img { width:60px; height:60px; border-radius:50%; object-fit:cover; border:2px solid #ff8501; margin-bottom:5px; }
+
+/* Upload */
+#upload-section { background:#fff; padding:15px; margin-bottom:10px; display:flex; gap:10px; flex-direction:column; }
+
+/* Feed */
+#feed-section { padding:10px; display:flex; flex-direction:column; gap:20px; }
+.post { background:#fff; border:1px solid #dbdbdb; border-radius:5px; overflow:hidden; }
+.post img, .post video { width:100%; max-height:500px; object-fit:cover; }
+.profile { display:flex; align-items:center; gap:10px; padding:10px; }
+.profile-pic { width:40px; height:40px; border-radius:50%; object-fit:cover; border:1px solid #dbdbdb; }
+.post-actions { display:flex; gap:15px; padding:10px; }
+.post-actions button { background:none; border:none; cursor:pointer; font-size:20px; }
+.description { padding:0 10px 10px 10px; font-size:14px; color:#262626; }
+
+/* Barra inferior */
+#bottom-nav { position:sticky; bottom:0; display:flex; justify-content:space-around; background:#fff; padding:10px 0; border-top:1px solid #dbdbdb; z-index:100; }
+#bottom-nav button { background:none; border:none; font-size:28px; cursor:pointer; color:#262626; }
+
+/* Responsivo */
+@media(max-width:768px){ .profile-pic{width:35px;height:35px;} .post-actions button{font-size:18px;} .story img{width:50px;height:50px;} }
+@media(max-width:480px){ .profile-pic{width:30px;height:30px;} .post-actions button{font-size:16px;} .story img{width:45px;height:45px;} }
