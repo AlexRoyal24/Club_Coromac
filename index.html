@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <!-- Solución al error del viewport -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agenda de Cumpleaños</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>🎂 Agenda de Cumpleaños</h1>
+
+  <!-- Formulario -->
+  <div class="form-container">
+    <!-- Ahora los inputs tienen label y placeholder -->
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" name="nombre" placeholder="Escribe un nombre">
+
+    <label for="fecha">Fecha de nacimiento:</label>
+    <input type="date" id="fecha" name="fecha" title="Selecciona la fecha de nacimiento">
+
+    <button type="button" onclick="agregarCumple()">Agregar</button>
+  </div>
+
+  <!-- Lista de cumpleaños -->
+  <h2>📅 Próximos cumpleaños</h2>
+  <ul id="listaCumples"></ul>
+
+  <script src="main.js"></script>
+</body>
+</html>
