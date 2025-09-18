@@ -2,7 +2,6 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <!-- Solución al error del viewport -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Agenda de Cumpleaños</title>
   <link rel="stylesheet" href="style.css">
@@ -12,19 +11,30 @@
 
   <!-- Formulario -->
   <div class="form-container">
-    <!-- Ahora los inputs tienen label y placeholder -->
-    <label for="nombre">Nombre:</label>
-    <input type="text" id="nombre" name="nombre" placeholder="Escribe un nombre">
+    <form id="cumpleForm">
+      <label for="nombre">Nombre:</label>
+      <input type="text" id="nombre" name="nombre" placeholder="Escribe un nombre" required>
 
-    <label for="fecha">Fecha de nacimiento:</label>
-    <input type="date" id="fecha" name="fecha" title="Selecciona la fecha de nacimiento">
+      <label for="fecha">Fecha de nacimiento:</label>
+      <input type="date" id="fecha" name="fecha" required>
 
-    <button type="button" onclick="agregarCumple()">Agregar</button>
+      <button type="submit">Agregar</button>
+    </form>
   </div>
 
   <!-- Lista de cumpleaños -->
   <h2>📅 Próximos cumpleaños</h2>
   <ul id="listaCumples"></ul>
+
+  <!-- Calendario privado -->
+  <h2>📆 Calendario Privado</h2>
+  <div class="iframe-container">
+    <iframe class="calendario-iframe"
+            src="https://calendar.google.com/calendar/embed?src=b80335331cc154e98e6c8a1a3d4b9d45f4a2892c75f1ef55bb11745b20cd5bae%40group.calendar.google.com&ctz=America%2FGuatemala"
+            frameborder="0"
+            scrolling="no"
+            title="Calendario de Cumpleaños"></iframe>
+  </div>
 
   <script src="main.js"></script>
 </body>
