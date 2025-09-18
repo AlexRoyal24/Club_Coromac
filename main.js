@@ -18,15 +18,25 @@ function mostrarCumples() {
 
   cumplesOrdenados.forEach((c, index) => {
     let li = document.createElement("li");
-    li.textContent = `${c.nombre} - ${new Date(c.fecha).toLocaleDateString()}`;
 
-    // Botón borrar
-    let btnBorrar = document.createElement("button");
-    btnBorrar.textContent = "❌";
-    btnBorrar.onclick = () => eliminarCumple(index);
-    li.appendChild(btnBorrar);
+    // Texto del cumpleaños
+    let texto = document.createElement("span");
+    texto.textContent = `${c.nombre} - ${new Date(c.fecha).toLocaleDateString()}`;
+    li.appendChild(texto);
 
-    // Botón agregar a Google Calendar
+    // Contenedor para botones
+    let botones = document.createElement("span");
+    botones.style.marginLeft = "10px"; // Separación del texto
+    botones.style.display = "inline-flex";
+    botones.style.gap = "5px"; // Separación entre botones
+
+    // Botón eliminar
+    let btnEliminar = document.createElement("button");
+    btnEliminar.textContent = "Eliminar";
+    btnEliminar.onclick = () => eliminarCumple(index);
+    botones.appendChild(btnEliminar);
+
+    // Botón Google Calendar
     let btnGC = document.createElement("a");
     const fecha = new Date(c.fecha);
     const month = (fecha.getMonth() + 1).toString().padStart(2, "0");
@@ -37,10 +47,11 @@ function mostrarCumples() {
     const detalles = `Cumpleaños de ${c.nombre}. Recordatorio: ${diasAntesRecordatorio} día(s) antes.`;
     btnGC.href = `https://calendar.google.com/calendar/u/0/r/eventedit?text=${encodeURIComponent(c.nombre)}&dates=${start}/${end}&details=${encodeURIComponent(detalles)}&recur=RRULE:FREQ=YEARLY&trp=true`;
     btnGC.target = "_blank";
-    btnGC.textContent = `🎉 Agregar a Google Calendar`;
+    btnGC.textContent = "🎉 Google Calendar";
 
-    li.appendChild(btnGC);
+    botones.appendChild(btnGC);
 
+    li.appendChild(botones);
     lista.appendChild(li);
   });
 }
