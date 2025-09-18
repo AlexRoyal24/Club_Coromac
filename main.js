@@ -1,6 +1,9 @@
 // Recuperar cumpleaños guardados
 let cumpleanios = JSON.parse(localStorage.getItem("cumples")) || [];
 
+// Configuración de recordatorio en días antes
+const diasAntesRecordatorio = 1; // Cambia a 1, 2, 3 según quieras
+
 function mostrarCumples() {
   let lista = document.getElementById("listaCumples");
   lista.innerHTML = "";
@@ -24,13 +27,19 @@ function mostrarCumples() {
 
     // Botón agregar a Google Calendar
     let btnGC = document.createElement("a");
-    // Convertir fecha a formato YYYYMMDD para Google Calendar
-    const fechaGC = c.fecha.replace(/-/g, "");
-    const start = `${fechaGC}T100000`;
-    const end = `${fechaGC}T110000`;
-    btnGC.href = `https://calendar.google.com/calendar/u/0/r/eventedit?text=${encodeURIComponent(c.nombre)}&dates=${start}/${end}&details=Cumpleaños de ${encodeURIComponent(c.nombre)}`;
+    const fecha = new Date(c.fecha);
+    const month = (fecha.getMonth() + 1).toString().padStart(2, "0");
+    const day = fecha.getDate().toString().padStart(2, "0");
+    const start = `${fecha.getFullYear()}${month}${day}`;
+    const end = `${fecha.getFullYear()}${month}${day}`;
+
+    // Detalles con recordatorio indicado
+    const detalles = `Cumpleaños de ${c.nombre}. Recordatorio: ${diasAntesRecordatorio} día(s) antes.`;
+
+    // URL de Google Calendar con recurrencia anual y recordatorio por defecto
+    btnGC.href = `https://calendar.google.com/calendar/u/0/r/eventedit?text=${encodeURIComponent(c.nombre)}&dates=${start}/${end}&details=${encodeURIComponent(detalles)}&recur=RRULE:FREQ=YEARLY&trp=true`;
     btnGC.target = "_blank";
-    btnGC.textContent = "➕ Agregar evento";
+    btnGC.textContent = `🎉 Agregar evento anual con recordatorio (${diasAntesRecordatorio} día(s) antes)`;
 
     li.appendChild(btnBorrar);
     li.appendChild(btnGC);
