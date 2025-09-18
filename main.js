@@ -24,8 +24,23 @@ function mostrarCumples() {
     let btnBorrar = document.createElement("button");
     btnBorrar.textContent = "❌";
     btnBorrar.onclick = () => eliminarCumple(index);
-
     li.appendChild(btnBorrar);
+
+    // Botón agregar a Google Calendar
+    let btnGC = document.createElement("a");
+    const fecha = new Date(c.fecha);
+    const month = (fecha.getMonth() + 1).toString().padStart(2, "0");
+    const day = fecha.getDate().toString().padStart(2, "0");
+    const start = `${fecha.getFullYear()}${month}${day}`;
+    const end = `${fecha.getFullYear()}${month}${day}`;
+
+    const detalles = `Cumpleaños de ${c.nombre}. Recordatorio: ${diasAntesRecordatorio} día(s) antes.`;
+    btnGC.href = `https://calendar.google.com/calendar/u/0/r/eventedit?text=${encodeURIComponent(c.nombre)}&dates=${start}/${end}&details=${encodeURIComponent(detalles)}&recur=RRULE:FREQ=YEARLY&trp=true`;
+    btnGC.target = "_blank";
+    btnGC.textContent = `🎉 Agregar a Google Calendar`;
+
+    li.appendChild(btnGC);
+
     lista.appendChild(li);
   });
 }
