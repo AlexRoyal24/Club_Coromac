@@ -11,24 +11,26 @@ function mostrarCumples() {
   // Ordenar por fecha próxima
   let hoy = new Date();
   let cumplesOrdenados = cumpleanios.slice().sort((a, b) => {
-    let fechaA = new Date(hoy.getFullYear(), new Date(a.fecha).getMonth(), new Date(a.fecha).getDate());
-    let fechaB = new Date(hoy.getFullYear(), new Date(b.fecha).getMonth(), new Date(b.fecha).getDate());
+    let [anoA, mesA, diaA] = a.fecha.split("-").map(Number);
+    let [anoB, mesB, diaB] = b.fecha.split("-").map(Number);
+    let fechaA = new Date(hoy.getFullYear(), mesA - 1, diaA);
+    let fechaB = new Date(hoy.getFullYear(), mesB - 1, diaB);
     return fechaA - fechaB;
   });
 
   cumplesOrdenados.forEach((c, index) => {
     let li = document.createElement("li");
 
-    // Texto del cumpleaños
+    // Mostrar fecha sin modificación
     let texto = document.createElement("span");
-    texto.textContent = `${c.nombre} - ${new Date(c.fecha).toLocaleDateString()}`;
+    texto.textContent = `${c.nombre} - ${c.fecha.split("-").reverse().join("/")}`;
     li.appendChild(texto);
 
     // Contenedor para botones
     let botones = document.createElement("span");
-    botones.style.marginLeft = "10px"; // Separación del texto
+    botones.style.marginLeft = "10px";
     botones.style.display = "inline-flex";
-    botones.style.gap = "5px"; // Separación entre botones
+    botones.style.gap = "5px";
 
     // Botón eliminar
     let btnEliminar = document.createElement("button");
@@ -36,15 +38,13 @@ function mostrarCumples() {
     btnEliminar.onclick = () => eliminarCumple(index);
     botones.appendChild(btnEliminar);
 
-    // Botón Google Calendar
-    let btnGC = document.createElement("a");
-    const fecha = new Date(c.fecha);
-    const month = (fecha.getMonth() + 1).toString().padStart(2, "0");
-    const day = fecha.getDate().toString().padStart(2, "0");
-    const start = `${fecha.getFullYear()}${month}${day}`;
-    const end = `${fecha.getFullYear()}${month}${day}`;
+    // Botón Google Calendar (sin error de fecha)
+    const [ano, mes, dia] = c.fecha.split("-");
+    const start = `${ano}${mes}${dia}`;
+    const end = `${ano}${mes}${dia}`;
 
     const detalles = `Cumpleaños de ${c.nombre}. Recordatorio: ${diasAntesRecordatorio} día(s) antes.`;
+    let btnGC = document.createElement("a");
     btnGC.href = `https://calendar.google.com/calendar/u/0/r/eventedit?text=${encodeURIComponent(c.nombre)}&dates=${start}/${end}&details=${encodeURIComponent(detalles)}&recur=RRULE:FREQ=YEARLY&trp=true`;
     btnGC.target = "_blank";
     btnGC.textContent = "🎉 Google Calendar";
